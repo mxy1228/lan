@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <FrameLayout
+        android:id="@+id/main_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0"></FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/main_rg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds96"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_mp3_rbtn"
+            android:text="MP3"
+            style="@style/main_rbtn_style"/>
+        <RadioButton
+            android:id="@+id/main_video_rbtn"
+            android:text="@string/video"
+            style="@style/main_rbtn_style"/>
+        <RadioButton
+            android:id="@+id/main_pic_rbtn"
+            android:text="@string/pic"
+            style="@style/main_rbtn_style"/>
+        <RadioButton
+            android:id="@+id/main_more_rbtn"
+            android:text="@string/more"
+            style="@style/main_rbtn_style"/>
+    </RadioGroup>
+
+</LinearLayout>
