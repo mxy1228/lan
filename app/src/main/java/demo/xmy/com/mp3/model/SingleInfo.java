@@ -6,7 +6,7 @@ package demo.xmy.com.mp3.model;
 /**
  * Created by xumengyang01 on 2015/1/20.
  */
-public class MP3Info {
+public class SingleInfo {
 
     public int id;
     public String name;

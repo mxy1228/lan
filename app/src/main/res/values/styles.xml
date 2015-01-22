@@ -14,4 +14,15 @@
         <item name="android:background">@drawable/main_rb_xbg</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+    <style name="mp3_rbtn_style">
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/mp3_rb_xbg</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 </resources>

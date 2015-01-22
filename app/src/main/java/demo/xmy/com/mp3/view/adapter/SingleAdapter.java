@@ -14,17 +14,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import demo.xmy.com.mp3.R;
-import demo.xmy.com.mp3.model.MP3Info;
+import demo.xmy.com.mp3.model.SingleInfo;
 
 /**
  * Created by xumengyang01 on 2015/1/20.
  */
-public class MP3Adapter extends BaseAdapter implements View.OnClickListener{
+public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
 
-    private List<MP3Info> mData;
+    private List<SingleInfo> mData;
     private Context mCtx;
 
-    public MP3Adapter(Context ctx,List<MP3Info> data){
+    public SingleAdapter(Context ctx, List<SingleInfo> data){
         this.mData = data;
         this.mCtx = ctx;
     }
@@ -53,7 +53,7 @@ public class MP3Adapter extends BaseAdapter implements View.OnClickListener{
         }
     }
 
-    public void resetData(List<MP3Info> data){
+    public void resetData(List<SingleInfo> data){
         clear();
         if(this.mData != null){
             this.mData.addAll(data);
@@ -65,12 +65,12 @@ public class MP3Adapter extends BaseAdapter implements View.OnClickListener{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null){
-            convertView = LayoutInflater.from(mCtx).inflate(R.layout.mp3_item,null);
+            convertView = LayoutInflater.from(mCtx).inflate(R.layout.single_item,null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }
         holder = (ViewHolder)convertView.getTag();
-        MP3Info info = (MP3Info)getItem(position);
+        SingleInfo info = (SingleInfo)getItem(position);
         holder.mNameTV.setText(info.name);
         holder.mTipsTV.setText(info.album);
         holder.mPlayBtn.setOnClickListener(this);

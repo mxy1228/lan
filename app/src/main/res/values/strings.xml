@@ -9,4 +9,7 @@
     <string name="pic">图文</string>
     <string name="more">更多</string>
     <string name="mp3">MP3</string>
+    <string name="single">单曲</string>
+    <string name="album">专辑</string>
+    <string name="random">随机播放</string>
 </resources>
