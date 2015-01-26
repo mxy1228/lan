@@ -49,7 +49,6 @@ public class MP3Fragment extends BaseFragment implements IMP3Fragment,RadioGroup
         this.mRG = (RadioGroup)view.findViewById(R.id.mp3_layout_rg);
         this.mSingleRBtn = (RadioButton)view.findViewById(R.id.mp3_layout_single_rbtn);
         this.mAlbumRBtn = (RadioButton)view.findViewById(R.id.mp3_layout_album_rbtn);
-        this.mSingleRBtn.setSelected(true);
     }
 
     @Override
@@ -67,13 +66,15 @@ public class MP3Fragment extends BaseFragment implements IMP3Fragment,RadioGroup
         switch (checkedId){
             //单曲
             case R.id.mp3_layout_single_rbtn:
-                mSingleRBtn.setSelected(true);
-                mAlbumRBtn.setSelected(false);
+//                mSingleRBtn.setSelected(true);
+//                mAlbumRBtn.setSelected(false);
+                mVP.setCurrentItem(0);
                 break;
             //专辑
             case R.id.mp3_layout_album_rbtn:
-                mAlbumRBtn.setSelected(true);
-                mSingleRBtn.setSelected(false);
+//                mAlbumRBtn.setSelected(true);
+//                mSingleRBtn.setSelected(false);
+                mVP.setCurrentItem(1);
                 break;
 
         }

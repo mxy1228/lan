@@ -4,6 +4,7 @@
 package demo.xmy.com.mp3.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import demo.xmy.com.mp3.R;
 import demo.xmy.com.mp3.model.SingleInfo;
+import demo.xmy.com.mp3.view.activity.MP3PlayerActivity;
 
 /**
  * Created by xumengyang01 on 2015/1/20.
@@ -81,7 +83,8 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
     public void onClick(View v) {
        switch (v.getId()){
            case R.id.mp3_item_play_btn:
-                //TODO
+               Intent intent = MP3PlayerActivity.createIntent(mCtx);
+               mCtx.startActivity(intent);
                break;
        }
     }

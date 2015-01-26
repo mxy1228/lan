@@ -15,7 +15,8 @@
         <RadioButton
             android:id="@+id/mp3_layout_single_rbtn"
             style="@style/mp3_rbtn_style"
-            android:text="@string/single"/>
+            android:text="@string/single"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/mp3_layout_album_rbtn"
