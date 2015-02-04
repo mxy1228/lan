@@ -15,6 +15,6 @@ public class SingleInfo {
     public String album;
     public String size;
     public int islocal;//是否存在本地
-    public String filepath;
+    public String file;
     public String lyric;//歌词地址
 }

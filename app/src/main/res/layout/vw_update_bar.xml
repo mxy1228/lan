@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pulldown"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/updatebar_height"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/iv_update_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/tv_title"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/iv_progress_bar"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:indeterminate="false"
+            android:indeterminateDrawable="@drawable/progressbar"
+            android:layout_toLeftOf="@id/tv_title"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/vw_update_divider_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:scaleType="fitXY"
+        android:src="@drawable/divider_horizontal_timeline" />
+</FrameLayout>
+

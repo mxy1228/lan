@@ -6,7 +6,10 @@ package demo.xmy.com.mp3.view.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import demo.xmy.com.mp3.core.controller.SingleController;
 import demo.xmy.com.mp3.model.SingleInfo;
+import demo.xmy.com.mp3.model.SingleList;
 import demo.xmy.com.mp3.view.fragment.ISingleFragment;
 
 /**
@@ -15,23 +18,27 @@ import demo.xmy.com.mp3.view.fragment.ISingleFragment;
 public class SinglePresenter implements ISinglePresenter{
 
     private ISingleFragment mView;
+    private SingleController mController;
 
     public SinglePresenter(ISingleFragment view){
         this.mView = view;
+        this.mController = new SingleController();
+        EventBus.getDefault().register(this);
     }
 
     /**
      * 向服务器请求MP3数据
      */
     public void requestMP3InfosFromServer(){
-        //TEST
-        List<SingleInfo> data = new ArrayList<SingleInfo>();
-        for(int i=0;i<10;i++){
-            SingleInfo info = new SingleInfo();
-            info.name = "光辉岁月";
-            info.album = "真的见证";
-            data.add(info);
-        }
-        this.mView.onRequestMP3Infos(data);
+        this.mController.requestSingleList();
     }
+
+    /**
+     * 服务器返回单曲列表
+     * @param list
+     */
+    public void onEventMainThread(SingleList list){
+        mView.onRequestMP3Infos(list.single);
+    }
+
 }

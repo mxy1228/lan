@@ -3,6 +3,7 @@
   ~ Copyright (C) 2015 Baidu, Inc. All Rights Reserved.
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 

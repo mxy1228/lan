@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import demo.xmy.com.mp3.view.presenter.AlbumPresenter;
 public class AlbumFragment extends BaseFragment implements IAlbumFragment{
 
     private ListView mLV;
+    private LinearLayout mContainer;
 
     private AlbumAdapter mAdapter;
     private AlbumPresenter mPresenter;
@@ -41,6 +43,7 @@ public class AlbumFragment extends BaseFragment implements IAlbumFragment{
     @Override
     protected void initView(View view) {
         this.mLV = (ListView)view.findViewById(R.id.album_lv);
+        this.mContainer = (LinearLayout)view.findViewById(R.id.container);
     }
 
     @Override

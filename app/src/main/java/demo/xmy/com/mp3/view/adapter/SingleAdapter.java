@@ -26,6 +26,7 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
     private List<SingleInfo> mData;
     private Context mCtx;
 
+
     public SingleAdapter(Context ctx, List<SingleInfo> data){
         this.mData = data;
         this.mCtx = ctx;
@@ -37,7 +38,7 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
     }
 
     @Override
-    public Object getItem(int position) {
+    public SingleInfo getItem(int position) {
         return mData.get(position);
     }
 
@@ -76,14 +77,17 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
         holder.mNameTV.setText(info.name);
         holder.mTipsTV.setText(info.album);
         holder.mPlayBtn.setOnClickListener(this);
+        holder.mPlayBtn.setTag(info.url);
         return convertView;
     }
+
 
     @Override
     public void onClick(View v) {
        switch (v.getId()){
            case R.id.mp3_item_play_btn:
-               Intent intent = MP3PlayerActivity.createIntent(mCtx);
+               String url = v.getTag().toString();
+               Intent intent = MP3PlayerActivity.createIntent(mCtx,url);
                mCtx.startActivity(intent);
                break;
        }

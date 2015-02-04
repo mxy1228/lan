@@ -14,4 +14,6 @@
     <color name="color_8">#46b39d</color>
     <color name="item_bg">#D1D1D1</color>
     <color name="item_divider_color">#A9A9A9</color>
+    <color name="pull_down_text_color">#a3a7ac</color>
+    <color name="transparent">#FFFFFFFF</color>
 </resources>

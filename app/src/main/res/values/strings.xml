@@ -7,9 +7,28 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="video">视频</string>
     <string name="pic">图文</string>
-    <string name="more">更多</string>
     <string name="mp3">MP3</string>
     <string name="single">单曲</string>
     <string name="album">专辑</string>
     <string name="random">随机播放</string>
+
+
+
+    <string name="multiplex_empty_string"></string>
+
+    <string name="drop_dowm">下拉可以刷新</string>
+    <string name="release_update">松开可以刷新</string>
+    <string name="drop_down_load_history">下拉可以加载历史消息</string>
+    <string name="release_load_history">松开可以加载历史消息</string>
+    <string name="doing_update">加载中...</string>
+    <string name="update_time">更新于</string>
+    <string name="more">更多数据</string>
+    <string name="load_info">加载中....</string>
+    <string name="question_list_reply_count">%1$d个回答</string>
+    <string name="n_minitue_ago">%1$d分钟前</string>
+    <string name="n_second_ago">%1$d秒前</string>
+    <string name="n_hour_ago">%1$d小时前</string>
+    <string name="common_load_more">加载更多</string>
+    <string name="common_no_data">没有更多数据</string>
+    <string name="common_empty_label">好心塞\n这里居然是空的</string>
 </resources>

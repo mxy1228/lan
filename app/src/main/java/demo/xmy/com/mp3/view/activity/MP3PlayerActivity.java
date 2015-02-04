@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -26,16 +27,19 @@ import demo.xmy.com.mp3.view.presenter.MP3PlayerPresenter;
  */
 public class MP3PlayerActivity extends TitleActivity implements View.OnClickListener,IMP3PlayerActivity{
 
+    private static final String PLAY_URL = "url";
+
     private Button mPreBtn;
     private Button mPlayBtn;
     private Button mNextBtn;
     private ProgressBar mPB;
 
     private MP3PlayerPresenter mPresenter;
+    private String mPlayURL;
 
-//    private MediaPlayer mPlayer;
-    public static Intent createIntent(Context ctx){
+    public static Intent createIntent(Context ctx,String url){
         Intent intent = new Intent();
+        intent.putExtra(PLAY_URL,url);
         intent.setClass(ctx,MP3PlayerActivity.class);
         return intent;
     }
@@ -58,6 +62,7 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
     @Override
     protected void initData() {
         this.mPresenter.registEventBus(this);
+        this.mPlayURL = getIntent().getStringExtra(PLAY_URL);
     }
 
     @Override
@@ -82,26 +87,11 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
 
                 break;
             case R.id.mp3_player_play_btn:
-                mPresenter.play("http://7u2omh.com1.z0.glb.clouddn.com/01.AMANI.mp3");
-//                final  MediaPlayer player = new MediaPlayer();
-//                player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//                try {
-//                    player.setDataSource("http://7u2omh.com1.z0.glb.clouddn.com/01.AMANI.mp3");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                try {
-//                    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-//
-//                        @Override
-//                        public void onPrepared(MediaPlayer mp) {
-//                            player.start();
-//                        }
-//                    });
-//                    player.prepare();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                if(!TextUtils.isEmpty(PLAY_URL)){
+                    mPresenter.play(PLAY_URL);
+                }else{
+                    //TODO
+                }
                 break;
             case R.id.mp3_player_next_btn:
 
