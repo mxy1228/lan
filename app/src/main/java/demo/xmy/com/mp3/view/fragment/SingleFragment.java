@@ -53,7 +53,8 @@ public class SingleFragment extends BaseFragment implements ISingleFragment{
     @Override
     protected void initData() {
         this.mPresenter = new SinglePresenter(this);
-        this.mPresenter.requestMP3InfosFromServer();
+        this.mPresenter.getSingleListCache();
+        this.mPresenter.requestSingleListFromServer();
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.content.Context;
  */
 public interface IMP3PlayerPresenter {
 
+
     /**
      * 开始播放MP3
      * @param url
@@ -23,7 +24,6 @@ public interface IMP3PlayerPresenter {
 
     /**
      * 反注册消息中心
-     * @param clazz
      */
     public void unregistEventBus(Object object);
 }

@@ -87,8 +87,8 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
 
                 break;
             case R.id.mp3_player_play_btn:
-                if(!TextUtils.isEmpty(PLAY_URL)){
-                    mPresenter.play(PLAY_URL);
+                if(!TextUtils.isEmpty(mPlayURL)){
+                    mPresenter.play(mPlayURL);
                 }else{
                     //TODO
                 }
@@ -112,5 +112,10 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
     @Override
     public void onUpdateTotalDuration(int duration) {
        this.mPB.setMax(duration);
+    }
+
+    @Override
+    public void showPlayBtnText(int strId) {
+        this.mPlayBtn.setText(strId);
     }
 }

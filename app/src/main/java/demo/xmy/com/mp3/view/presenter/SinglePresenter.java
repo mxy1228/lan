@@ -29,8 +29,15 @@ public class SinglePresenter implements ISinglePresenter{
     /**
      * 向服务器请求MP3数据
      */
-    public void requestMP3InfosFromServer(){
+    public void requestSingleListFromServer(){
         this.mController.requestSingleList();
+    }
+
+    /**
+     * 查询单曲列表缓存
+     */
+    public void getSingleListCache(){
+        this.mController.getLocalSingleListCache();
     }
 
     /**

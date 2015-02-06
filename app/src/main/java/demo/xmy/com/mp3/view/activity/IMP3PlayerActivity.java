@@ -13,4 +13,10 @@ public interface IMP3PlayerActivity {
      * @param duration
      */
     public void onUpdateTotalDuration(int duration);
+
+    /**
+     * 播放按钮文案显示
+     * @param sreId
+     */
+    public void showPlayBtnText(int sreId);
 }

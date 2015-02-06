@@ -31,4 +31,6 @@
     <string name="common_load_more">加载更多</string>
     <string name="common_no_data">没有更多数据</string>
     <string name="common_empty_label">好心塞\n这里居然是空的</string>
+    <string name="play">播放</string>
+    <string name="pause">暂停</string>
 </resources>

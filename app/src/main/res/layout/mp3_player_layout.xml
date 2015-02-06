@@ -44,7 +44,7 @@
                 android:background="@color/color_3"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
-                android:text="Play"/>
+                android:text="@string/play"/>
 
             <Button
                 android:id="@+id/mp3_player_next_btn"

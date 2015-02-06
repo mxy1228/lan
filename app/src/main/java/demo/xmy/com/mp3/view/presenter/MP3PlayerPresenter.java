@@ -3,7 +3,6 @@
  */
 package demo.xmy.com.mp3.view.presenter;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
@@ -12,6 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
+import demo.xmy.com.mp3.R;
 import demo.xmy.com.mp3.model.MP3PlayingEvent;
 import demo.xmy.com.mp3.view.activity.IMP3PlayerActivity;
 
@@ -26,18 +26,27 @@ public class MP3PlayerPresenter implements IMP3PlayerPresenter{
     private PlayerProgressTask mTimerTask;
     private Timer mTimer;
 
+    //MediaPlayer是否已经被设置数据
+    private boolean isPlayerHadData;
+
     public MP3PlayerPresenter(IMP3PlayerActivity view){
         this.mView = view;
         this.mPlayer = new MediaPlayer();
         this.mTimerTask = new PlayerProgressTask();
     }
 
-
-
     @Override
     public void play(String url) {
-        if(mPlayer.isPlaying()){
-            mPlayer.stop();
+        if(isPlayerHadData){
+            if(mPlayer.isPlaying()){
+                mPlayer.pause();
+                mView.showPlayBtnText(R.string.play);
+                return;
+            }else{
+                mPlayer.start();
+                mView.showPlayBtnText(R.string.pause);
+                return;
+            }
         }
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
@@ -56,6 +65,8 @@ public class MP3PlayerPresenter implements IMP3PlayerPresenter{
                 mTimer = new Timer();
                 mTimer.schedule(mTimerTask,0,1000);
                 mPlayer.start();
+                mView.showPlayBtnText(R.string.pause);
+                isPlayerHadData = true;
             }
         });
         try {

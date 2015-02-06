@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import demo.xmy.com.mp3.core.model.SPUtils;
 import demo.xmy.com.mp3.core.net.HttpURLContants;
 import demo.xmy.com.mp3.core.net.JSONUtils;
 import demo.xmy.com.mp3.core.net.MyAsyncResponseHandler;
@@ -27,7 +28,7 @@ import demo.xmy.com.mp3.view.adapter.SingleAdapter;
 public class SingleController {
 
     /**
-     * 请求单曲列表
+     * 向服务器请求单曲列表
      */
     public void requestSingleList(){
 
@@ -40,9 +41,9 @@ public class SingleController {
 
             @Override
             public void onSuccess(int statusCode, String content) {
-                SingleList list = JSONUtils.read(content,new TypeReference<SingleList>() {
-                });
+                SingleList list = convertJsonToSingleList(content);
                 if(list != null){
+                    SPUtils.getInstance().saveSingleList(content);
                     EventBus.getDefault().post(list);
                 }
             }
@@ -51,6 +52,27 @@ public class SingleController {
             public void onFailure(int statusCode, String content) {
                 super.onFailure(statusCode, content);
             }
+        });
+    }
+
+    /**
+     * 从本地SP中查询单曲列表缓存
+     */
+    public void getLocalSingleListCache(){
+        String content = SPUtils.getSingleList();
+        if(content != null){
+            SingleList list = convertJsonToSingleList(content);
+            EventBus.getDefault().post(list);
+        }
+    }
+
+    /**
+     * 将Json转换成SingleList
+     * @param content
+     * @return
+     */
+    private SingleList convertJsonToSingleList(String content){
+        return JSONUtils.read(content,new TypeReference<SingleList>() {
         });
     }
 }
