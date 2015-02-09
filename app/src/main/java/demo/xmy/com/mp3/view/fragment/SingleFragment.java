@@ -23,10 +23,9 @@ import demo.xmy.com.mp3.view.presenter.SinglePresenter;
  * 单曲
  * Created by xumengyang01 on 2015/1/21.
  */
-public class SingleFragment extends BaseFragment implements ISingleFragment{
+public class SingleFragment extends BaseFragment implements ISingleFragment,SingleAdapter.SingleActionListener{
 
     private ListView mLV;
-    private LinearLayout mHeaderView;
 
     private SingleAdapter mAdapter;
     private SinglePresenter mPresenter;
@@ -61,9 +60,34 @@ public class SingleFragment extends BaseFragment implements ISingleFragment{
     public void onRequestMP3Infos(List<SingleInfo> data) {
         if(mAdapter == null){
             mAdapter = new SingleAdapter(getActivity(),data);
+            mAdapter.setActionListener(SingleFragment.this);
             mLV.setAdapter(mAdapter);
         }else{
             this.mAdapter.resetData(data);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.mPresenter.unregistEventHandler();
+    }
+
+    /**
+     * 更新下载进度
+     * @param progress
+     * @param url
+     */
+    @Override
+    public void showDownloadProgress(double progress,String url) {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 单曲被下载
+     */
+    @Override
+    public void download(SingleInfo info) {
+        this.mPresenter.download(info);
     }
 }

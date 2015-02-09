@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import demo.xmy.com.mp3.R;
+import demo.xmy.com.mp3.core.model.FileUtils;
 import demo.xmy.com.mp3.model.SingleInfo;
 import demo.xmy.com.mp3.view.activity.MP3PlayerActivity;
 
@@ -26,6 +27,7 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
     private List<SingleInfo> mData;
     private Context mCtx;
 
+    private SingleActionListener mListener;
 
     public SingleAdapter(Context ctx, List<SingleInfo> data){
         this.mData = data;
@@ -77,18 +79,30 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
         holder.mNameTV.setText(info.name);
         holder.mTipsTV.setText(info.album);
         holder.mPlayBtn.setOnClickListener(this);
-        holder.mPlayBtn.setTag(info.url);
+        holder.mDownloadBtn.setOnClickListener(this);
+        holder.mPlayBtn.setTag(info);
+        holder.mDownloadBtn.setTag(info);
+        holder.mDownloadBtn.setVisibility(info.downloadprogress == 100 ? View.GONE : View.VISIBLE);
+        holder.mDownloadBtn.setText(info.downloadprogress == 0 ? mCtx.getString(R.string.download) : String.format("%2.0f%%",info.downloadprogress));
         return convertView;
     }
 
 
     @Override
     public void onClick(View v) {
+        SingleInfo info = (SingleInfo)v.getTag();
        switch (v.getId()){
            case R.id.mp3_item_play_btn:
-               String url = v.getTag().toString();
-               Intent intent = MP3PlayerActivity.createIntent(mCtx,url);
-               mCtx.startActivity(intent);
+               if(info != null){
+                   String url = info.url;
+                   Intent intent = MP3PlayerActivity.createIntent(mCtx,url,info.name);
+                   mCtx.startActivity(intent);
+               }
+               break;
+           case R.id.mp3_item_download_btn:
+                if(mListener != null && info != null){
+                    mListener.download(info);
+                }
                break;
        }
     }
@@ -99,10 +113,20 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
             this.mNameTV = (TextView)view.findViewById(R.id.mp3_item_name_tv);
             this.mTipsTV = (TextView)view.findViewById(R.id.mp3_item_tips_tv);
             this.mPlayBtn = (Button)view.findViewById(R.id.mp3_item_play_btn);
+            this.mDownloadBtn = (Button)view.findViewById(R.id.mp3_item_download_btn);
         }
 
         public TextView mNameTV;
         public TextView mTipsTV;
         public Button mPlayBtn;
+        public Button mDownloadBtn;
+    }
+
+    public void setActionListener(SingleActionListener listener){
+        this.mListener  = listener;
+    }
+
+    public interface SingleActionListener{
+        public void download(SingleInfo info);
     }
 }

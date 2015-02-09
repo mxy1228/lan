@@ -17,4 +17,5 @@ public class SingleInfo {
     public int islocal;//是否存在本地
     public String file;
     public String lyric;//歌词地址
+    public double downloadprogress;//下载进度
 }

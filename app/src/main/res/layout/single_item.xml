@@ -34,10 +34,17 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/mp3_item_download_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/color_6"
+        android:text="@string/download"/>
+
+    <Button
         android:id="@+id/mp3_item_play_btn"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Play"
+        android:text="@string/play"
         android:background="@color/color_7"/>
 
 </LinearLayout>

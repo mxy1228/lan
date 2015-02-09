@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import java.io.IOException;
 
 import demo.xmy.com.mp3.R;
+import demo.xmy.com.mp3.core.model.FileUtils;
 import demo.xmy.com.mp3.model.MP3PlayingEvent;
 import demo.xmy.com.mp3.view.TitleActivity;
 import demo.xmy.com.mp3.view.presenter.MP3PlayerPresenter;
@@ -28,6 +29,7 @@ import demo.xmy.com.mp3.view.presenter.MP3PlayerPresenter;
 public class MP3PlayerActivity extends TitleActivity implements View.OnClickListener,IMP3PlayerActivity{
 
     private static final String PLAY_URL = "url";
+    private static final String SONG_NAME = "name";
 
     private Button mPreBtn;
     private Button mPlayBtn;
@@ -36,19 +38,27 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
 
     private MP3PlayerPresenter mPresenter;
     private String mPlayURL;
+    private String mSongName;
 
-    public static Intent createIntent(Context ctx,String url){
+    public static Intent createIntent(Context ctx,String url,String name){
         Intent intent = new Intent();
         intent.putExtra(PLAY_URL,url);
+        intent.putExtra(SONG_NAME,name);
         intent.setClass(ctx,MP3PlayerActivity.class);
         return intent;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mp3_player_layout);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTitleTxt(FileUtils.isExist(mPlayURL) ? getString(R.string.local_file,mSongName) : mSongName);
+        this.mPlayURL = FileUtils.isExist(mPlayURL) ? FileUtils.getSongDir(FileUtils.getFileName(mPlayURL)) : mPlayURL;
     }
 
     @Override
@@ -63,6 +73,8 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
     protected void initData() {
         this.mPresenter.registEventBus(this);
         this.mPlayURL = getIntent().getStringExtra(PLAY_URL);
+        this.mSongName = getIntent().getStringExtra(SONG_NAME);
+        setTitleTxt(mSongName);
     }
 
     @Override

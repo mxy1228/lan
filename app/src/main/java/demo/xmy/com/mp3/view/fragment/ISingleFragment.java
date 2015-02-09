@@ -13,4 +13,10 @@ import demo.xmy.com.mp3.model.SingleInfo;
 public interface ISingleFragment {
 
     public void onRequestMP3Infos(List<SingleInfo> data);
+
+    /**
+     * 显示下载进度
+     * @param progress
+     */
+    public void showDownloadProgress(double progress,String url);
 }

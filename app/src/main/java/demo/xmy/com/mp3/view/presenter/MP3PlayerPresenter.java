@@ -5,6 +5,7 @@ package demo.xmy.com.mp3.view.presenter;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -50,6 +51,7 @@ public class MP3PlayerPresenter implements IMP3PlayerPresenter{
         }
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
+            Log.d("play url","url = "+url);
             mPlayer.setDataSource(url);
         } catch (IOException e) {
             e.printStackTrace();

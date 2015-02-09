@@ -39,4 +39,9 @@ public class MyAsyncResponseHandler extends AsyncHttpResponseHandler{
     public void onFailure(int statusCode,String content){
 
     }
+
+    @Override
+    public void onProgress(int bytesWritten, int totalSize) {
+        super.onProgress(bytesWritten, totalSize);
+    }
 }

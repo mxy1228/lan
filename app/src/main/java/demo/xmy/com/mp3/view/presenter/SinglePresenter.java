@@ -3,11 +3,14 @@
  */
 package demo.xmy.com.mp3.view.presenter;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import demo.xmy.com.mp3.core.controller.SingleController;
+import demo.xmy.com.mp3.model.DownloadProgressEvent;
 import demo.xmy.com.mp3.model.SingleInfo;
 import demo.xmy.com.mp3.model.SingleList;
 import demo.xmy.com.mp3.view.fragment.ISingleFragment;
@@ -19,6 +22,8 @@ public class SinglePresenter implements ISinglePresenter{
 
     private ISingleFragment mView;
     private SingleController mController;
+
+    private SingleList mList;
 
     public SinglePresenter(ISingleFragment view){
         this.mView = view;
@@ -45,7 +50,33 @@ public class SinglePresenter implements ISinglePresenter{
      * @param list
      */
     public void onEventMainThread(SingleList list){
-        mView.onRequestMP3Infos(list.single);
+        mList = list;
+        mView.onRequestMP3Infos(mList.single);
     }
+
+    @Override
+    public void download(SingleInfo info) {
+        mController.downloadSingle(info.url);
+    }
+
+    @Override
+    public void unregistEventHandler() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 下载进度
+     * @param e
+     */
+    public void onEventMainThread(DownloadProgressEvent e){
+        Log.d("download progress","progress = "+e.progress);
+        for(SingleInfo info : mList.single){
+            if(info.url.equals(e.url)){
+                info.downloadprogress = e.progress;
+            }
+        }
+        this.mView.showDownloadProgress(e.progress,e.url);
+    }
+
 
 }
