@@ -59,6 +59,7 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
         super.onResume();
         setTitleTxt(FileUtils.isExist(mPlayURL) ? getString(R.string.local_file,mSongName) : mSongName);
         this.mPlayURL = FileUtils.isExist(mPlayURL) ? FileUtils.getSongDir(FileUtils.getFileName(mPlayURL)) : mPlayURL;
+        this.mPresenter.checkCurrentPlayState(mPlayURL);
     }
 
     @Override
@@ -116,8 +117,10 @@ public class MP3PlayerActivity extends TitleActivity implements View.OnClickList
      * @param e
      */
     public void onEventMainThread(MP3PlayingEvent e){
-        if(e != null){
-            this.mPB.setProgress(e.current);
+        if(e != null && !TextUtils.isEmpty(e.playUrl)){
+            if(e.playUrl.equals(mPlayURL)){
+                this.mPB.setProgress(e.playProgress.intValue());
+            }
         }
     }
 

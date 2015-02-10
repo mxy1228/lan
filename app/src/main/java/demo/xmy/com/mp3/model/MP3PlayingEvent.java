@@ -8,7 +8,7 @@ package demo.xmy.com.mp3.model;
  */
 public class MP3PlayingEvent{
 
-    public int current;
-
+    public Double playProgress;
+    public String playUrl;
 
 }

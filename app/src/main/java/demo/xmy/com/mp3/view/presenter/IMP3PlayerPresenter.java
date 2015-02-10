@@ -26,4 +26,10 @@ public interface IMP3PlayerPresenter {
      * 反注册消息中心
      */
     public void unregistEventBus(Object object);
+
+    /**
+     * 检测当前url播放状态
+     * @param url
+     */
+    public void checkCurrentPlayState(String url);
 }

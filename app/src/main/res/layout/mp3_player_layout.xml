@@ -21,6 +21,7 @@
             android:id="@+id/mp3_player_pb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:max="100"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
         <LinearLayout
