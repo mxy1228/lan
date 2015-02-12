@@ -42,7 +42,7 @@ public class SinglePresenter implements ISinglePresenter{
      * 查询单曲列表缓存
      */
     public void getSingleListCache(){
-        this.mController.getLocalSingleListCache();
+        this.mController.getLocalSingleListCacheAndPost();
     }
 
     /**

@@ -32,4 +32,14 @@ public interface IMP3PlayerPresenter {
      * @param url
      */
     public void checkCurrentPlayState(String url);
+
+    /**
+     * 播放上一曲
+     */
+    public void playPre();
+
+    /**
+     * 播放下一曲
+     */
+    public void playNext();
 }

@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_2"
                 android:textColor="#FFFFFF"
-                android:text="pre"/>
+                android:text="@string/pre"/>
 
             <Button
                 android:id="@+id/mp3_player_play_btn"
@@ -54,7 +54,7 @@
                 android:background="@color/color_2"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
-                android:text="Next"/>
+                android:text="@string/next"/>
         </LinearLayout>
 
     </LinearLayout>

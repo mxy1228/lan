@@ -94,8 +94,7 @@ public class SingleAdapter extends BaseAdapter implements View.OnClickListener{
        switch (v.getId()){
            case R.id.mp3_item_play_btn:
                if(info != null){
-                   String url = info.url;
-                   Intent intent = MP3PlayerActivity.createIntent(mCtx,url,info.name);
+                   Intent intent = MP3PlayerActivity.createIntent(mCtx,info);
                    mCtx.startActivity(intent);
                }
                break;

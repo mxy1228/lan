@@ -63,4 +63,13 @@ public class FileUtils {
     public static String getSongDir(String filename){
         return FileUtils.SONGS_DIR+"/"+filename;
     }
+
+    /**
+     * 获取临时文件
+     * @param filename
+     * @return
+     */
+    public static String getTmepFileDir(String filename){
+        return FileUtils.SONGS_DIR + "/" + filename + "_tmp";
+    };
 }

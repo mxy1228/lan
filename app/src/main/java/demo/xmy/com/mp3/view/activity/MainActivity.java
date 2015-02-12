@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.testin.agent.TestinAgent;
+
 import demo.xmy.com.mp3.R;
 import demo.xmy.com.mp3.view.TitleActivity;
 import demo.xmy.com.mp3.view.fragment.MP3Fragment;
@@ -46,6 +48,7 @@ public class MainActivity extends TitleActivity implements RadioGroup.OnCheckedC
     protected void initData() {
         this.mPresenter = new MainPresenter(this);
         this.mPresenter.switchRadioBtn(R.id.main_mp3_rbtn);
+        TestinAgent.init(this,"aafcde5f7d6a2b335c9fca707038095b");
     }
 
     @Override

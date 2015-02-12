@@ -3,33 +3,17 @@
  */
 package demo.xmy.com.mp3.core.controller;
 
-import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.URLUtil;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.ProgressCallback;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
 import org.apache.http.Header;
-import org.apache.http.client.utils.URIUtils;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import demo.xmy.com.mp3.MyApplication;
 import demo.xmy.com.mp3.core.model.FileUtils;
 import demo.xmy.com.mp3.core.model.SPUtils;
 import demo.xmy.com.mp3.core.net.HttpURLContants;
@@ -39,7 +23,6 @@ import demo.xmy.com.mp3.core.net.MyHttpClient;
 import demo.xmy.com.mp3.model.DownloadProgressEvent;
 import demo.xmy.com.mp3.model.SingleInfo;
 import demo.xmy.com.mp3.model.SingleList;
-import demo.xmy.com.mp3.view.adapter.SingleAdapter;
 
 /**
  * Created by xumengyang01 on 2015/2/4.
@@ -71,13 +54,25 @@ public class SingleController {
     }
 
     /**
-     * 从本地SP中查询单曲列表缓存
+     * 从本地SP中查询单曲列表缓存并发送消息
      */
-    public void getLocalSingleListCache(){
+    public void getLocalSingleListCacheAndPost(){
         String content = SPUtils.getSingleList();
         if(content != null){
             postSingleList(content);
         }
+    }
+
+    /**
+     * 从本地SP种查询单曲列表缓存
+     * @return
+     */
+    public SingleList getLocalSingleListCache(){
+        String content = SPUtils.getSingleList();
+        if(content != null){
+            return convertJsonToSingleList(content);
+        }
+        return null;
     }
 
     private void postSingleList(String json){
@@ -100,10 +95,18 @@ public class SingleController {
             Log.e("SingleController","fileName is null");
             return;
         }
-        File file = new File(FileUtils.getSongDir(fileName));
+        final File targetFile = new File(FileUtils.getSongDir(fileName));
+        final File tmpFile = new File(FileUtils.getTmepFileDir(fileName));
         MyHttpClient client = new MyHttpClient();
         try{
-            client.get(url,new FileAsyncHttpResponseHandler(file) {
+            client.get(url,new FileAsyncHttpResponseHandler(tmpFile) {
+
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    tmpFile.deleteOnExit();
+                }
+
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                     Log.e("file download",throwable.getLocalizedMessage());
@@ -112,6 +115,7 @@ public class SingleController {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, File file) {
                     Log.d("file download","download success and file = "+file.getAbsolutePath());
+                    file.renameTo(targetFile);
                 }
 
                 @Override
@@ -138,6 +142,5 @@ public class SingleController {
         return JSONUtils.read(content,new TypeReference<SingleList>() {
         });
     }
-
 
 }

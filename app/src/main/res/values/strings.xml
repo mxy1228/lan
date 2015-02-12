@@ -35,4 +35,6 @@
     <string name="pause">暂停</string>
     <string name="download">下载</string>
     <string name="local_file">%1$s(本地)</string>
+    <string name="pre">上一曲</string>
+    <string name="next">下一曲</string>
 </resources>

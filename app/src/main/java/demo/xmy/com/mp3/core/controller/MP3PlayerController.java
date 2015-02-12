@@ -14,7 +14,10 @@ import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 import demo.xmy.com.mp3.R;
+import demo.xmy.com.mp3.core.model.SingleIndex;
 import demo.xmy.com.mp3.model.MP3PlayingEvent;
+import demo.xmy.com.mp3.model.SingleInfo;
+import demo.xmy.com.mp3.model.SingleList;
 
 /**
  * Created by xumengyang01 on 2015/2/10.
@@ -28,9 +31,10 @@ public class MP3PlayerController {
     private MediaPlayer mPlayer;
     private Timer mTimer;
     private PlayerListener mListener;
+    private SingleList mSingleList;
 
     //当前播放的url
-    private String mCurrentPlayUrl;
+    private static String mCurrentPlayUrl;
     private int mTotalDuration;
 
     public static MP3PlayerController getInstance(){
@@ -42,6 +46,7 @@ public class MP3PlayerController {
 
     private MP3PlayerController(){
         this.mPlayer = new MediaPlayer();
+        this.mSingleList = new SingleController().getLocalSingleListCache();
     }
 
     /**
@@ -119,6 +124,9 @@ public class MP3PlayerController {
                 }
                 isPlayerHadData = true;
                 mCurrentPlayUrl = url;
+                if(mListener != null){
+                    mListener.prepareFinish();
+                }
             }
         });
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -130,11 +138,28 @@ public class MP3PlayerController {
                 mTimer.cancel();
             }
         });
-        try {
-            mPlayer.prepare();
-        } catch (IOException e) {
+        try{
+            mPlayer.prepareAsync();
+            if(mListener != null){
+                mListener.startPrepare();
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 根据下标获取单曲信息
+     */
+    public SingleInfo getSingle(SingleIndex index,int currentIndex){
+        if( mSingleList != null){
+            if(currentIndex != 0 && index.getValue() == SingleIndex.PRE.getValue()){
+                return mSingleList.single.get(currentIndex - 1);
+            }else if(currentIndex != mSingleList.single.size() - 1 && index.getValue() == SingleIndex.NEXT.getValue()){
+                return mSingleList.single.get(currentIndex + 1);
+            }
+        }
+        return null;
     }
 
     public interface PlayerListener{
@@ -153,6 +178,16 @@ public class MP3PlayerController {
          * @param duration
          */
         public void duration(int duration);
+
+        /**
+         * 开始准备
+         */
+        public void startPrepare();
+
+        /**
+         * 准备结束
+         */
+        public void prepareFinish();
     }
 
     public void setPlayListener(PlayerListener listener){

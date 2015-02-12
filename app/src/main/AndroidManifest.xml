@@ -21,10 +21,18 @@
             android:name=".view.BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
-        <activity android:name=".view.activity.MP3PlayerActivity"></activity>
+        <activity android:name=".view.activity.MP3PlayerActivity"
+            android:launchMode="singleTop"></activity>
+
+        <meta-data android:name="TESTIN_APPKEY" android:value="aafcde5f7d6a2b335c9fca707038095b"/>
+        <meta-data android:name="TESTIN_CHANNEL" android:value=""/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 </manifest>

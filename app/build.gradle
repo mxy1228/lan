@@ -8,8 +8,8 @@ android {
         applicationId "demo.xmy.com.mp3"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.2"
     }
     buildTypes {
         release {
@@ -37,5 +37,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
     compile 'com.koushikdutta.ion:ion:2.+'
+    compile fileTree(dir:'libs',include: '*.jar')
 }
 

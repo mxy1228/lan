@@ -3,9 +3,16 @@
  */
 package demo.xmy.com.mp3.view.presenter;
 
+import java.io.File;
+
 import de.greenrobot.event.EventBus;
 import demo.xmy.com.mp3.R;
 import demo.xmy.com.mp3.core.controller.MP3PlayerController;
+import demo.xmy.com.mp3.core.controller.SingleController;
+import demo.xmy.com.mp3.core.model.FileUtils;
+import demo.xmy.com.mp3.core.model.SingleIndex;
+import demo.xmy.com.mp3.model.SingleInfo;
+import demo.xmy.com.mp3.model.SingleList;
 import demo.xmy.com.mp3.view.activity.IMP3PlayerActivity;
 
 /**
@@ -15,11 +22,17 @@ public class MP3PlayerPresenter implements IMP3PlayerPresenter,MP3PlayerControll
 
     private IMP3PlayerActivity mView;
     private MP3PlayerController mController;
+    private SingleController mSingleController;
+    private SingleList mList;
+    private SingleInfo mInfo;
 
-    public MP3PlayerPresenter(IMP3PlayerActivity view){
+    public MP3PlayerPresenter(IMP3PlayerActivity view,SingleInfo info){
         this.mView = view;
         this.mController = MP3PlayerController.getInstance();
         this.mController.setPlayListener(this);
+        this.mSingleController = new SingleController();
+        this.mList = mSingleController.getLocalSingleListCache();
+        this.mInfo = info;
     }
 
     @Override
@@ -48,6 +61,40 @@ public class MP3PlayerPresenter implements IMP3PlayerPresenter,MP3PlayerControll
         }
     }
 
+    @Override
+    public void playPre() {
+        if(mList != null && mInfo != null){
+            for(SingleInfo info : mList.single){
+                if(info.id == mInfo.id){
+                    SingleInfo targetInfo = mController.getSingle(SingleIndex.PRE,mList.single.indexOf(info));
+                    if(targetInfo != null){
+                        //先暂停
+                        mController.play(mInfo.url);
+                        mView.restartPlayerActivity(targetInfo);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void playNext() {
+        if(mList != null && mInfo != null){
+            for(SingleInfo info : mList.single){
+                if(info.id == mInfo.id){
+                    SingleInfo targetInfo = mController.getSingle(SingleIndex.NEXT,mList.single.indexOf(info));
+                    if(targetInfo != null){
+                        //先暂停
+                        mController.play(mInfo.url);
+                        mView.restartPlayerActivity(targetInfo);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
 
     @Override
     public void play() {
@@ -62,5 +109,16 @@ public class MP3PlayerPresenter implements IMP3PlayerPresenter,MP3PlayerControll
     @Override
     public void duration(int duration) {
         mView.onUpdateTotalDuration(duration);
+    }
+
+
+    @Override
+    public void startPrepare() {
+        mView.showWaitingDialog();
+    }
+
+    @Override
+    public void prepareFinish() {
+        mView.dissmisWaitingDialog();
     }
 }

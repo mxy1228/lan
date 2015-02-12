@@ -3,10 +3,12 @@
  */
 package demo.xmy.com.mp3.model;
 
+import java.io.Serializable;
+
 /**
  * Created by xumengyang01 on 2015/1/20.
  */
-public class SingleInfo {
+public class SingleInfo implements Serializable{
 
     public int id;
     public String name;
